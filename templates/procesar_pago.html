@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Procesar Pago</title>
+</head>
+<body>
+  <h1>Resumen de Pago</h1>
+  <h2>Productos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in productos %}
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.cantidad }}</td>
+        <td>{% widthratio producto.precio 1 producto.cantidad %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Total a Pagar: ${{ total_amount }}</h2>
+
+  <form action="https://checkout.stripe.com/redirect/session/{{ session_id }}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Realizar Pago</button>
+  </form>
+</body>
+</html>
